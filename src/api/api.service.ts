@@ -1,14 +1,19 @@
-import { InjectQueue } from '@nestjs/bull';
+import { InjectQueue, OnQueueActive, Process, Processor } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
-import { Queue } from 'bull';
+import { Job, Queue } from 'bull';
+import { Repository } from 'typeorm';
 import { HarryApiDto } from './dtos/harryapi.dto';
+import { HarryApi } from './Entities/Api.entity';
 
 @Injectable()
 export class ApiService {
   constructor(
     @InjectQueue('apiData')
     private apiDataQueue: Queue,
+    @InjectRepository(HarryApi)
+    private harryApiRepository: Repository<HarryApi>,
   ) {}
 
   async toQueue(harryApi: HarryApiDto) {
@@ -16,7 +21,7 @@ export class ApiService {
     return job;
   }
 
-  async getData() {
+  async getData(): Promise<void> {
     const headers = { 'Content-Type': 'application/json' };
     const { data } = await axios.get<HarryApiDto>(
       'http://hp-api.herokuapp.com/api/characters',
@@ -24,11 +29,11 @@ export class ApiService {
         headers,
       },
     );
-    for (let i = 0; i < 290; i++) {
+    let count = 290;
+    for (let i = 0; i < count; i++) {
       const character = data[i];
-      const job = await this.toQueue(character);
-      console.log(job);
-      return job;
+      await this.toQueue(character);
     }
+    return;
   }
 }

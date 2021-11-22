@@ -14,37 +14,37 @@ export class HarryApi {
   @Column()
   gender: string;
 
-  @Column()
+  @Column({ nullable: true })
   house: string;
 
-  @Column()
+  @Column({ nullable: true })
   dateOfBirth: string;
 
-  @Column()
+  @Column({ nullable: true })
   yearOfBirth: number;
 
   @Column()
   wizard: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   ancestry: string;
 
-  @Column()
-  eyeColor: string;
+  @Column({ nullable: true })
+  eyeColour: string;
 
-  @Column()
-  hairColor: string;
+  @Column({ nullable: true })
+  hairColour: string;
 
-  @Column()
+  @Column({ nullable: true })
   wandWood: string;
 
-  @Column()
+  @Column({ nullable: true })
   wandCore: string;
 
-  @Column()
+  @Column({ nullable: true })
   wandLength: number;
 
-  @Column()
+  @Column({ nullable: true })
   patronus: string;
 
   @Column()
@@ -53,12 +53,12 @@ export class HarryApi {
   @Column()
   hogwartsStaff: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   actor: string;
 
   @Column()
   alive: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 }
