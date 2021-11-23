@@ -1,3 +1,1 @@
-# Controller que vai receber o pedido
-# Vai enfilerar os pedidos
-# Vai ter um consumidor da fila que ira ter a regra de negocio para salvar no banco da moovery (new request)
+# Essa é uma API que pega os dados de alguma API, manda para uma fila no redis, e salva os dados em um banco local, fiz usando de exemplo a api de HarryPotter 
