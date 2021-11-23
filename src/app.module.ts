@@ -10,8 +10,11 @@ import { ApiModule } from './api/api.module';
     TypeOrmModule.forRoot(),
     BullModule.forRoot({
       redis: {
-        host: 'localhost',
-        port: 6379,
+        name: 'redis-contoured-68625',
+        host: 'ec2-3-213-148-22.compute-1.amazonaws.com',
+        port: 8049,
+        password:
+          'p289ed67dc121b1d812f9f69aaff56fefffdc8595b46e673bc84789cc9ed5f033',
       },
     }),
     ApiModule,
