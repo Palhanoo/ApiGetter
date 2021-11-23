@@ -20,13 +20,7 @@ export class DataProcessor {
   ) {}
 
   @Process({ name: 'data' })
-  @OnQueueActive()
-  async onActive(job: Job) {
-    const { data } = job;
-    console.log(data);
-  }
-
-  @OnQueueResumed()
+  @OnQueueCompleted()
   async onCompleted(job: Job): Promise<void> {
     const { data } = job;
 
@@ -37,51 +31,19 @@ export class DataProcessor {
       house,
       dateOfBirth,
       yearOfBirth,
+      wizard,
       ancestry,
       eyeColour,
       hairColour,
       patronus,
+      hogwartsStudent,
+      hogwartsStaff,
       actor,
+      alive,
       image,
     } = data;
-    let wizard = data.wizard;
-    let hogwartsStudent = data.hogwartsStudent;
-    let hogwartsStaff = data.hogwartsStaff;
-    let alive = data.alive;
     const { wood: wandWood, core: wandCore, length: wandLength } = data.wand;
-    console.log(`salvando o ${job.id}`);
-    switch (data.wizard) {
-      case '1':
-        data.wizard = true;
-        break;
-      case '0':
-        data.wizard = false;
-        break;
-    }
-    switch (data.hogwartsStudent) {
-      case '1':
-        data.hogwartsStudent = true;
-        break;
-      case '0':
-        data.hogwartsStudent = false;
-        break;
-    }
-    switch (data.hogwartsStaff) {
-      case '1':
-        data.hogwartsStaff = true;
-        break;
-      case '0':
-        data.hogwartsStaff = false;
-        break;
-    }
-    switch (data.alive) {
-      case '1':
-        data.alive = true;
-        break;
-      case '0':
-        data.alive = false;
-        break;
-    }
+
     try {
       const saveInBank = await this.harryApiRepository.save({
         name,
@@ -104,6 +66,7 @@ export class DataProcessor {
         alive,
         image,
       });
+      console.log(`salvando o ${job.id}`);
       return;
     } catch (err) {
       console.log(err);

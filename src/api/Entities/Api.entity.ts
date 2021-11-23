@@ -21,7 +21,7 @@ export class HarryApi {
   dateOfBirth: string;
 
   @Column({ nullable: true })
-  yearOfBirth: number;
+  yearOfBirth: string;
 
   @Column()
   wizard: boolean;
@@ -42,7 +42,7 @@ export class HarryApi {
   wandCore: string;
 
   @Column({ nullable: true })
-  wandLength: number;
+  wandLength: string;
 
   @Column({ nullable: true })
   patronus: string;

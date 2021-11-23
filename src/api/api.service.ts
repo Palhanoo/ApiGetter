@@ -1,8 +1,8 @@
-import { InjectQueue, OnQueueActive, Process, Processor } from '@nestjs/bull';
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
-import { Job, Queue } from 'bull';
+import { Queue } from 'bull';
 import { Repository } from 'typeorm';
 import { HarryApiDto } from './dtos/harryapi.dto';
 import { HarryApi } from './Entities/Api.entity';
@@ -21,19 +21,21 @@ export class ApiService {
     return job;
   }
 
-  async getData(): Promise<void> {
+  async getCharData(): Promise<void> {
     const headers = { 'Content-Type': 'application/json' };
-    const { data } = await axios.get<HarryApiDto>(
+    const { data } = await axios.get<HarryApiDto[]>(
       'http://hp-api.herokuapp.com/api/characters',
       {
         headers,
       },
     );
-    let count = 290;
-    for (let i = 0; i < count; i++) {
-      const character = data[i];
-      await this.toQueue(character);
+    for (let char of data) {
+      await this.toQueue(char);
     }
-    return;
+  }
+
+  async listChars(): Promise<HarryApi[]> {
+    const CharData = await this.harryApiRepository.find();
+    return CharData;
   }
 }

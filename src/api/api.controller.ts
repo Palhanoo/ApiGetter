@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiService } from './api.service';
 import { HarryApiDto } from './dtos/harryapi.dto';
+import { HarryApi } from './Entities/Api.entity';
 
 @Controller('api')
 export class ApiController {
@@ -8,14 +9,16 @@ export class ApiController {
 
   @Post('receber')
   async receber(@Body() harryApi: HarryApiDto) {
-    console.log(harryApi);
-    const job = await this.apiService.toQueue(harryApi);
-    console.log(job);
-    return job.id;
+    await this.apiService.toQueue(harryApi);
   }
 
   @Get('data')
   async pegar(): Promise<void> {
-    await this.apiService.getData();
+    await this.apiService.getCharData();
+  }
+
+  @Get('chars')
+  async listar(): Promise<HarryApi[]> {
+    return await this.apiService.listChars();
   }
 }
