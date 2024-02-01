@@ -1,2 +1,27 @@
-### Essa é uma API que pega os dados de alguma API, manda para uma fila no redis, e salva os dados em um banco local, fiz usando de exemplo a api de HarryPotter.
-Para funcionar em alguma outra API,basta criar uma @Entity com os dados que quer salvar, além typar a resposta que ela manda, e passar os objetos para fila. Assim que chegar na fila já vai ser processado pelo @Process, e salvo no banco
+# Project Name
+
+ApiGetter
+
+## Introduction
+
+This is an API which get the data from another API, send to Redis, and save all data in a database, I used the HarryPotter API as an Example.
+To use with any other API, just create a @Entity with the data you want to save, as soon it come to the line, it'll be processed and save on the database
+
+## Technologies and Libraries
+
+- JavaScript
+- NodeJS
+- NestJS
+- Redis
+- TypeORM
+- PostgresSQL
+
+## Development Status
+
+- [ ] In active development
+- [ ] No longer actively developed
+- [X] Completed
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
